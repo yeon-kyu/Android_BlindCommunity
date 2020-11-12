@@ -7,8 +7,9 @@
 
     <ImageButton
         android:id="@+id/homeButton"
-        android:layout_width="60dp"
-        android:layout_height="70dp"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="30dp"
         android:background="@drawable/homebutton2"
         android:layout_weight="1">
 
@@ -17,9 +18,9 @@
 
     <ImageButton
         android:id="@+id/logoutButton"
-        android:layout_width="60dp"
-        android:layout_height="80dp"
-        android:layout_marginLeft="20dp"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="80dp"
         android:background="@drawable/logoutbutton2"
         android:layout_weight="1">
 
@@ -27,9 +28,10 @@
 
     <ImageButton
         android:id="@+id/myTraceButton"
-        android:layout_width="60dp"
-        android:layout_height="80dp"
-        android:layout_marginLeft="20dp"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginRight="30dp"
         android:background="@drawable/mytracebutton"
         android:layout_weight="1">
 

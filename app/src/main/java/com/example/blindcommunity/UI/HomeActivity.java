@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,6 +28,9 @@ public class HomeActivity extends AppCompatActivity {
     MyTraceScreenFragment myTraceScreenFragment;
 
     TextView TitleText;
+    public int title;
+
+    static final String HELLO =  "Welcome To YK World";
 
 
     @Override
@@ -48,22 +52,29 @@ public class HomeActivity extends AppCompatActivity {
 
 
     }
+
+    public void makeToast(String str){
+        Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
+    }
     public void onChangeFragment(int index){
         if(index==1){
             fm.beginTransaction().replace(R.id.middleFragment,lookupScreenFragment).commit();
             TitleText.setText("자유 게시판");
+            title = 1;
         }
         else if(index==2){
             fm.beginTransaction().replace(R.id.middleFragment,lookupScreenFragment).commit();
             TitleText.setText("정보 게시판");
+            title = 2;
         }
         else if(index==3){
             fm.beginTransaction().replace(R.id.middleFragment,lookupScreenFragment).commit();
             TitleText.setText("취업 게시판");
+            title = 3;
         }
         else if(index==0){ //게시판 홈 화면
             fm.beginTransaction().replace(R.id.middleFragment,homeScreenFragment).commit();
-            TitleText.setText("Blind Community");
+            TitleText.setText(HELLO);
         }
         else if(index==-1){ //로그인 화면
             Intent intent = new Intent(HomeActivity.this, SignInActivity.class);
