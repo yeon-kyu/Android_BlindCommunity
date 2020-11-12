@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
+
+    <Button
+        android:id="@+id/freePost"
+        android:layout_width="240dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="40dp"
+        android:text="자유 게시판"
+        android:textSize="40dp"
+        android:textStyle="italic">
+
+    </Button>
+
+    <Button
+        android:id="@+id/infoPost"
+        android:layout_width="240dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="40dp"
+        android:text="정보 게시판"
+        android:textSize="40dp"
+        android:textStyle="italic">
+
+    </Button>
+
+    <Button
+        android:id="@+id/employeePost"
+        android:layout_width="240dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="40dp"
+        android:text="취업 게시판"
+        android:textSize="40dp"
+        android:textStyle="italic">
+
+    </Button>
+
+
+
+
+
+</LinearLayout>

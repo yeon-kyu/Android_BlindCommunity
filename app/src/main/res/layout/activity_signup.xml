@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Blind Community"
+        android:textSize="40dp"
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center_horizontal"
+        >
+    </TextView>
+
+
+
+    <EditText
+        android:id="@+id/signupId"
+        android:layout_width="250dp"
+        android:layout_height="70dp"
+        android:gravity="center"
+        android:layout_marginTop="100dp"
+        android:layout_gravity="center_horizontal"
+        android:hint="ID"
+        android:textSize="32dp">
+    </EditText>
+
+    <EditText
+        android:id="@+id/signupPw"
+        android:layout_width="250dp"
+        android:layout_height="70dp"
+        android:gravity="center"
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center_horizontal"
+        android:hint="PASSWORD"
+        android:textSize="32dp"
+        android:inputType="textPassword">
+    </EditText>
+
+    <EditText
+        android:id="@+id/signupNickname"
+        android:layout_width="250dp"
+        android:layout_height="70dp"
+        android:gravity="center"
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center_horizontal"
+        android:hint="NICKNAME"
+        android:textSize="32dp">
+    </EditText>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center_horizontal">
+
+        <Button
+            android:id="@+id/cancelBtn"
+            android:layout_width="160dp"
+            android:layout_height="80dp"
+            android:text="취소"
+            android:textSize="40dp">
+
+        </Button>
+
+        <Button
+            android:id="@+id/confirmBtn"
+            android:layout_width="160dp"
+            android:layout_height="80dp"
+            android:layout_marginLeft="40dp"
+            android:text="확인"
+            android:textSize="40dp">
+
+        </Button>
+
+    </LinearLayout>
+
+</LinearLayout>
