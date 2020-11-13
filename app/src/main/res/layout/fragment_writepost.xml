@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <Button
+        android:id="@+id/writeButton"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:paddingLeft="10dp"
+        android:text="게시"
+        android:textSize="20dp"
+        android:background="@drawable/my_round_button"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        android:textStyle="bold">
+
+    </Button>
+
+    <Button
+        android:id="@+id/cancelButton"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/xmark">
+
+    </Button>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <EditText
+            android:id="@+id/titleEditText"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="12"
+            android:textSize="32dp"
+            android:hint="제목[100자 이내]"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+
+        </EditText>
+
+        <EditText
+            android:id="@+id/contentEditText"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="95"
+            android:textSize="28dp"
+            android:hint="내용[1000자 이내]"
+            android:gravity="top"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+
+        </EditText>
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -17,6 +17,7 @@ import com.example.blindcommunity.R;
 import com.example.blindcommunity.fragment.HomeScreenFragment;
 import com.example.blindcommunity.fragment.LookupScreenFragment;
 import com.example.blindcommunity.fragment.MyTraceScreenFragment;
+import com.example.blindcommunity.fragment.WritePostFragment;
 
 import org.w3c.dom.Text;
 
@@ -26,9 +27,11 @@ public class HomeActivity extends AppCompatActivity {
     HomeScreenFragment homeScreenFragment;
     LookupScreenFragment lookupScreenFragment;
     MyTraceScreenFragment myTraceScreenFragment;
+    WritePostFragment writePostFragment;
 
     TextView TitleText;
     public int title;
+    public String cur_user_id;
 
     static final String HELLO =  "Welcome To YK World";
 
@@ -43,11 +46,14 @@ public class HomeActivity extends AppCompatActivity {
         homeScreenFragment = new HomeScreenFragment();
         lookupScreenFragment = new LookupScreenFragment();
         myTraceScreenFragment = new MyTraceScreenFragment();
+        writePostFragment = new WritePostFragment();
 
         fragmentTransaction.add(R.id.middleFragment, homeScreenFragment).commit();
 
         TitleText = findViewById(R.id.titleText);
 
+        Intent intent = getIntent();
+        cur_user_id = intent.getExtras().getString("cur_user_id");
 
 
 
@@ -83,6 +89,9 @@ public class HomeActivity extends AppCompatActivity {
         else if(index==4){ //myTrace화면
             fm.beginTransaction().replace(R.id.middleFragment,myTraceScreenFragment).commit();
             TitleText.setText("내가 쓴 게시물");
+        }
+        else if(index==5){ //글쓰기 writepost화면
+            fm.beginTransaction().replace(R.id.middleFragment,writePostFragment).commit();
         }
     }
 

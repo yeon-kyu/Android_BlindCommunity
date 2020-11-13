@@ -105,6 +105,7 @@ public class SignInActivity extends AppCompatActivity {
                 makeToast("나의 아이디 : "+ID);
 
                 Intent intent = new Intent(SignInActivity.this,HomeActivity.class);
+                intent.putExtra("cur_user_id",ID);
                 startActivity(intent);
             }
             else if(result.equals("0")){

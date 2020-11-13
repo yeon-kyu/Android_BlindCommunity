@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.fragment.app.Fragment;
@@ -29,7 +30,7 @@ public class LookupScreenFragment extends Fragment {
     ArrayList<String> post_list;
     ArrayAdapter adapter;
     int count;
-
+    Button writePostButton;
     @Override
     public void onAttach(Context context){
         super.onAttach(context);
@@ -55,6 +56,15 @@ public class LookupScreenFragment extends Fragment {
 
         sendJSONData();
 
+        writePostButton = view.findViewById(R.id.writePostButton);
+        writePostButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                homeActivity.onChangeFragment(5);
+
+            }
+        });
+
         return view;
     }
     private void sendJSONData(){
@@ -73,22 +83,7 @@ public class LookupScreenFragment extends Fragment {
         }
 
     }
-    private int getCurrentPost(){
-        int temp = homeActivity.title;
-//        if(str.equals("자유 게시판")){
-//            return 1;
-//        }
-//        else if(str.equals("정보 게시판")){
-//            return 2;
-//        }
-//        else if(str.equals("취업 게시판")){
-//            return 3;
-//        }
-//        else{
-//            return 0;
-//        }
-        return 0;
-    }
+
 
 
     private class JSONTaskGET extends JsonTaskModel {

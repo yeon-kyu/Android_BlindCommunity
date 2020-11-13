@@ -12,7 +12,7 @@
         android:name="com.example.blindcommunity.fragment.upperFragment"
         tools:layout="@layout/fragment_upper"
         android:background="@layout/fragment_upper"
-        android:layout_weight="8">
+        >
 
 
     </fragment>
