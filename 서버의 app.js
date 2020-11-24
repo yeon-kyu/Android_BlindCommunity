@@ -251,8 +251,8 @@ app.get("/write_free",(req,res) => {
   console.log("들어온 데이터 : "+inputData.content);
   console.log("들어온 데이터 : "+inputData.user_id);
 
-  pool.query(`insert into freePostTable(post_id, title, content, user_id)\
-              values( '${inputData.post_id}', '${inputData.title}', '${inputData.content}', '${inputData.user_id}');`,
+  pool.query(`insert into freePostTable(post_id, title, content, user_id, post_type)\
+              values( '${inputData.post_id}', '${inputData.title}', '${inputData.content}', '${inputData.user_id}', '자유 게시판');`,
    function(err,result,fields){
     if(err){
       console.log("free게시판에 글쓰기 실패");
@@ -279,8 +279,8 @@ app.get("/write_info",(req,res) => {
   console.log("들어온 데이터 : "+inputData.content);
   console.log("들어온 데이터 : "+inputData.user_id);
 
-  pool.query(`insert into infoPostTable(post_id, title, content, user_id)\
-              values( '${inputData.post_id}', '${inputData.title}', '${inputData.content}', '${inputData.user_id}');`,
+  pool.query(`insert into infoPostTable(post_id, title, content, user_id, post_type)\
+              values( '${inputData.post_id}', '${inputData.title}', '${inputData.content}', '${inputData.user_id}', '정보 게시판');`,
    function(err,result,fields){
     if(err){
       console.log("info게시판에 글쓰기 실패");
@@ -307,8 +307,8 @@ app.get("/write_employ",(req,res) => {
   console.log("들어온 데이터 : "+inputData.content);
   console.log("들어온 데이터 : "+inputData.user_id);
 
-  pool.query(`insert into employPostTable(post_id, title, content, user_id)\
-              values( '${inputData.post_id}', '${inputData.title}', '${inputData.content}', '${inputData.user_id}');`,
+  pool.query(`insert into employPostTable(post_id, title, content, user_id, post_type)\
+              values( '${inputData.post_id}', '${inputData.title}', '${inputData.content}', '${inputData.user_id}', '취업 게시판');`,
    function(err,result,fields){
     if(err){
       console.log("employ게시판에 글쓰기 실패");
@@ -469,6 +469,76 @@ app.get("/search_comment",(req,res) => {
       }
       else{
         console.log("해당 게시판에 댓글이 없습니다.");
+        res.write("0",function(){
+          res.end(); 
+        });
+      }
+    }
+
+  });
+});
+
+app.get("/find_trace",(req,res) => {
+  console.log("find_trace 도착");
+  var inputData = req.query;
+  console.log("들어온 데이터 : "+inputData.user_id);
+
+  pool.query(`(select title,post_id,post_type from freePostTable where user_id = '${inputData.user_id}')\
+              UNION (select title,post_id,post_type from infoPostTable where user_id = '${inputData.user_id}')\
+              UNION (select title,post_id,post_type from employPostTable where user_id = '${inputData.user_id}')\
+              order by post_id desc`,
+   function(err,result,fields){
+    if(err){
+      console.log("게시글 찾기 에러");
+      res.write("-1",function(){
+        res.end();
+      })
+      throw err;
+    }
+    else{
+      if(result[0]){ //아이디로 select했을때 하나라도 있는 경우
+        console.log("작성한 게시글 찾기 성공");
+        res.write(JSON.stringify(result),function(){
+          res.end();
+        })
+      }
+      else{
+        console.log("작성한 게시글이 없습니다.");
+        res.write("0",function(){
+          res.end(); 
+        });
+      }
+    }
+
+  });
+});
+
+app.get("/check_writerOrNot",(req,res) => {
+  console.log("check_writerOrNot 도착");
+  var inputData = req.query;
+  console.log("들어온 데이터 : "+inputData.user_id);
+  console.log("들어온 데이터 : "+inputData.post_id);
+
+  pool.query(`(select * from freePostTable where post_id = '${inputData.post_id}' and user_id = '${inputData.user_id}')\
+              UNION (select * from infoPostTable where post_id = '${inputData.post_id}' and user_id = '${inputData.user_id}')\
+              UNION (select * from employPostTable where post_id = '${inputData.post_id}' and user_id = '${inputData.user_id}')`,
+   function(err,result,fields){
+    if(err){
+      console.log("check_writerOrNot 찾기 에러");
+      res.write("-1",function(){
+        res.end();
+      })
+      throw err;
+    }
+    else{
+      if(result[0]){ //아이디로 select했을때 하나라도 있는 경우
+        console.log("글쓴이가 맞습니다.");
+        res.write("1",function(){
+          res.end();
+        })
+      }
+      else{
+        console.log("글쓴이가 아닙니다.");
         res.write("0",function(){
           res.end(); 
         });

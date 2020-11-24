@@ -39,6 +39,8 @@ public class InsidePostActivity extends Activity {
     EditText m_commentText;
     ImageButton m_sendCommentButton;
 
+    Button editButton, deleteButton;
+
     ArrayList<HashMap<String,String>> comment_list;
     SimpleAdapter adapter;
 
@@ -50,6 +52,9 @@ public class InsidePostActivity extends Activity {
         m_nickname = findViewById(R.id.postInsideNickname);
         m_title = findViewById(R.id.postInsideTitle);
         m_content = findViewById(R.id.postInsideContent);
+
+        editButton = findViewById(R.id.editButton);
+        deleteButton = findViewById(R.id.deleteButton);
 
         Intent intent = getIntent();
         m_post_id = intent.getStringExtra("post_id");
@@ -93,13 +98,14 @@ public class InsidePostActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 HashMap<String,String> m_item = (HashMap<String, String>) adapter.getItem(position);
-                String user_id = m_item.get("item3"); //TODO 나중에 댓글 삭제할 때
+                String user_id = m_item.get("item3"); //TODO 나중에 댓글 삭제할 때 여기에 저장한 item3의 user_id를 사용함
 
             }
 
 
         });
 
+        //해당 게시물의 내용을 보기 위해 post_id를 서버에 전송하여 그 내용을 받아온다.
         JSONTaskGET task1 = new JSONTaskGET();
         String parameter = "?post_id="+m_post_id;
 
@@ -110,14 +116,19 @@ public class InsidePostActivity extends Activity {
         else if(employ_type==3)
             task1.execute("http://13.125.232.199:3000/search_employ_content" + parameter);
 
+        //해당 게시물에 달린 댓글을 확인하여 그 갯수만큼 Listview에 추가한다.
         JSONSearchCommentTaskGET task3 = new JSONSearchCommentTaskGET();
         task3.execute("http://13.125.232.199:3000/search_comment" + parameter);
+
+        //해당 게시물의 글쓴이가 현재 사용자인지 확인하여 맞으면 수정/삭제 버튼 보이도록 한다.
+        JSONCheckIfWriterTaskGET task4 = new JSONCheckIfWriterTaskGET();
+        task4.execute("http://13.125.232.199:3000/check_writerOrNot" + parameter+"&user_id="+cur_user_id);
 
 
     }
 
 
-
+    //Toast를 짧은 코드로 사용하기 위한 함수
     private void makeToast(String string){
         Toast.makeText(getApplicationContext(), string, Toast.LENGTH_SHORT).show();
     }
@@ -234,6 +245,29 @@ public class InsidePostActivity extends Activity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+            }
+        }
+    }
+
+    private class JSONCheckIfWriterTaskGET extends JsonTaskModel{
+        public void setData(ArrayList<Data> data){
+            super.setData(data);
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            if(result == null){
+                return;
+            }
+            if(result.equals("0")){
+                Log.e("not writer","글쓴이가 아닙니다");
+
+            }
+            else if(result.equals("1")){
+                Log.e("you are the writer","글쓴이 입니다.");
+                editButton.setVisibility(View.VISIBLE);
+                deleteButton.setVisibility(View.VISIBLE);
             }
         }
     }
