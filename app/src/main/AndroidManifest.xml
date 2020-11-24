@@ -20,7 +20,8 @@
         <activity android:name=".UI.HomeActivity">
         </activity>
         <activity android:name=".UI.SignupActivity">
-
+        </activity>
+        <activity android:name=".UI.InsidePostActivity">
         </activity>
     </application>
 

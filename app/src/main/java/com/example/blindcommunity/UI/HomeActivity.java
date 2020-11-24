@@ -34,12 +34,16 @@ public class HomeActivity extends AppCompatActivity {
     public String cur_user_id;
 
     static final String HELLO =  "Welcome To YK World";
+    private long backKeyPressedTime;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        backKeyPressedTime = 0;
+
         fm = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
 
@@ -85,6 +89,7 @@ public class HomeActivity extends AppCompatActivity {
         else if(index==-1){ //로그인 화면
             Intent intent = new Intent(HomeActivity.this, SignInActivity.class);
             startActivity(intent);
+            finish();
         }
         else if(index==4){ //myTrace화면
             fm.beginTransaction().replace(R.id.middleFragment,myTraceScreenFragment).commit();
@@ -92,6 +97,25 @@ public class HomeActivity extends AppCompatActivity {
         }
         else if(index==5){ //글쓰기 writepost화면
             fm.beginTransaction().replace(R.id.middleFragment,writePostFragment).commit();
+        }
+    }
+    public void moveToInsidePostActivity(String arg){
+        Intent intent = new Intent(this,InsidePostActivity.class);
+        intent.putExtra("post_id",arg);
+        intent.putExtra("user_id",cur_user_id);
+        intent.putExtra("employ_type",title); //1:free 2:info 3:employ
+        startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed(){
+        if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
+            backKeyPressedTime = System.currentTimeMillis();
+            makeToast("'뒤로' 버튼을 한번 더 누르시면 종료됩니다.");
+            return;
+        }
+        if (System.currentTimeMillis() <= backKeyPressedTime + 2000) {
+            finish();
         }
     }
 

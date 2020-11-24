@@ -327,5 +327,156 @@ app.get("/write_employ",(req,res) => {
   });
 });
 
+app.get("/search_free_content",(req,res) => {
+  console.log("search_free_content 도착");
+  var inputData = req.query;
+  console.log("들어온 데이터 : "+inputData.post_id);
+
+  pool.query(`select nickname, title, content from UserTable u, freePostTable f\
+              where u.user_id = f.user_id and f.post_id = '${inputData.post_id}';`,
+   function(err,result,fields){
+    if(err){
+      throw err;
+    }
+    else{
+      if(result[0]){ //아이디로 select했을때 하나라도 있는 경우
+        console.log("free게시판 content검색 성공");
+        res.write(JSON.stringify(result),function(){
+          res.end();
+        })
+      }
+      else{
+        console.log("free게시판에서 해당 post_id를 찾지 못했습니다.");
+        res.write("-1",function(){
+          res.end(); 
+        });
+      }
+    }
+
+  });
+});
+
+app.get("/search_info_content",(req,res) => {
+  console.log("search_info_content 도착");
+  var inputData = req.query;
+  console.log("들어온 데이터 : "+inputData.post_id);
+
+  pool.query(`select nickname, title, content from UserTable u, infoPostTable f\
+              where u.user_id = f.user_id and f.post_id = '${inputData.post_id}';`,
+   function(err,result,fields){
+    if(err){
+      throw err;
+    }
+    else{
+      if(result[0]){ //아이디로 select했을때 하나라도 있는 경우
+        console.log("info게시판 content검색 성공");
+        res.write(JSON.stringify(result),function(){
+          res.end();
+        })
+      }
+      else{
+        console.log("info게시판에서 해당 post_id를 찾지 못했습니다.");
+        res.write("-1",function(){
+          res.end(); 
+        });
+      }
+    }
+
+  });
+});
+
+app.get("/search_employ_content",(req,res) => {
+  console.log("search_employ_content 도착");
+  var inputData = req.query;
+  console.log("들어온 데이터 : "+inputData.post_id);
+
+  pool.query(`select nickname, title, content from UserTable u, employPostTable f\
+              where u.user_id = f.user_id and f.post_id = '${inputData.post_id}';`,
+   function(err,result,fields){
+    if(err){
+      throw err;
+    }
+    else{
+      if(result[0]){ //아이디로 select했을때 하나라도 있는 경우
+        console.log("employ게시판 content검색 성공");
+        res.write(JSON.stringify(result),function(){
+          res.end();
+        })
+      }
+      else{
+        console.log("employ게시판에서 해당 post_id를 찾지 못했습니다.");
+        res.write("-1",function(){
+          res.end(); 
+        });
+      }
+    }
+
+  });
+});
+
+app.get("/write_comment",(req,res) => {
+  console.log("write_comment 도착");
+  var inputData = req.query;
+  console.log("들어온 데이터 : "+inputData.post_id);
+  console.log("들어온 데이터 : "+inputData.user_id);
+  console.log("들어온 데이터 : "+inputData.comment_content);
+  console.log("들어온 데이터 : "+inputData.comment_id);
+
+  pool.query(`insert into commentTable(post_id,user_id,comment_content,comment_id)\
+              values('${inputData.post_id}','${inputData.user_id}','${inputData.comment_content}','${inputData.comment_id}');`,
+   function(err,result,fields){
+    if(err){
+      console.log("댓글 쓰기 에러");
+      res.write("-1",function(){
+        res.end();
+      })
+      throw err;
+    }
+    else{
+      console.log("댓글을 성공적으로 추가하였습니다.");
+      res.write("1",function(){
+        res.end(); 
+      });
+      
+    }
+
+  });
+});
+
+app.get("/search_comment",(req,res) => {
+  console.log("search_comment 도착");
+  var inputData = req.query;
+  console.log("들어온 데이터 : "+inputData.post_id);
+
+  pool.query(`select nickname, comment_content, u.user_id\
+              from UserTable u, commentTable c\
+              where u.user_id = c.user_id and c.post_id = '${inputData.post_id}'\
+              order by c.comment_id asc;`,
+   function(err,result,fields){
+    if(err){
+      console.log("댓글 찾기 에러");
+      res.write("-1",function(){
+        res.end();
+      })
+      throw err;
+    }
+    else{
+      if(result[0]){ //아이디로 select했을때 하나라도 있는 경우
+        console.log("해당 게시판에서 댓글 찾기 성공");
+        res.write(JSON.stringify(result),function(){
+          res.end();
+        })
+      }
+      else{
+        console.log("해당 게시판에 댓글이 없습니다.");
+        res.write("0",function(){
+          res.end(); 
+        });
+      }
+    }
+
+  });
+});
+
 
 console.log("서버 시작");

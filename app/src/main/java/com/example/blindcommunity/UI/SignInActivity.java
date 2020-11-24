@@ -107,6 +107,7 @@ public class SignInActivity extends AppCompatActivity {
                 Intent intent = new Intent(SignInActivity.this,HomeActivity.class);
                 intent.putExtra("cur_user_id",ID);
                 startActivity(intent);
+                finish();
             }
             else if(result.equals("0")){
                 makeToast("해당 아이디가 없습니다.");
