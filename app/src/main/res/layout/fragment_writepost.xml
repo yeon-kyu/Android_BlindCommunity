@@ -1,32 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <Button
-        android:id="@+id/writeButton"
-        android:layout_width="120dp"
-        android:layout_height="50dp"
-        android:paddingLeft="10dp"
-        android:text="게시"
-        android:textSize="20dp"
-        android:background="@drawable/yellow_round_button"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="20dp"
-        android:textStyle="bold">
+    android:layout_height="match_parent"
+    android:background="@drawable/yellow_paperboard_background">
 
-    </Button>
-
-    <Button
-        android:id="@+id/cancelButton"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/xmark">
-
-    </Button>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,8 +13,9 @@
             android:id="@+id/titleEditText"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:fontFamily="@font/myfont"
             android:layout_weight="12"
-            android:textSize="32dp"
+            android:textSize="28dp"
             android:hint="제목[100자 이내]"
             android:paddingLeft="20dp"
             android:paddingRight="20dp">
@@ -48,14 +26,51 @@
             android:id="@+id/contentEditText"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:fontFamily="@font/myfont"
             android:layout_weight="95"
-            android:textSize="28dp"
+            android:textSize="24dp"
             android:hint="내용[1000자 이내]"
             android:gravity="top"
             android:paddingLeft="20dp"
             android:paddingRight="20dp">
 
         </EditText>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true">
+
+        <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/myfont"
+            android:text="취소"
+            android:textSize="20dp"
+            android:background="@drawable/transparent_round_button">
+
+        </Button>
+
+        <Button
+            android:id="@+id/writeButton"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:fontFamily="@font/myfont"
+            android:paddingLeft="10dp"
+            android:text="게시"
+            android:textSize="20dp"
+            android:background="@drawable/yellow_round_button"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="40dp"
+            android:textStyle="bold">
+
+        </Button>
 
     </LinearLayout>
 

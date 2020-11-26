@@ -1,6 +1,8 @@
 package com.example.blindcommunity.UI;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -87,9 +89,7 @@ public class HomeActivity extends AppCompatActivity {
             TitleText.setText(HELLO);
         }
         else if(index==-1){ //로그인 화면
-            Intent intent = new Intent(HomeActivity.this, SignInActivity.class);
-            startActivity(intent);
-            finish();
+            showLogoutDialog();
         }
         else if(index==4){ //myTrace화면
             fm.beginTransaction().replace(R.id.middleFragment,myTraceScreenFragment).commit();
@@ -105,6 +105,27 @@ public class HomeActivity extends AppCompatActivity {
         intent.putExtra("user_id",cur_user_id);
         intent.putExtra("employ_type",title); //1:free 2:info 3:employ
         startActivity(intent);
+    }
+
+    void showLogoutDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("로그아웃 하시겠습나까?");
+        builder.setPositiveButton("예",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        //Toast.makeText(getApplicationContext(),"예를 선택했습니다.",Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(HomeActivity.this, SignInActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+        builder.setNegativeButton("아니오",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        //Toast.makeText(getApplicationContext(),"아니오를 선택했습니다.",Toast.LENGTH_LONG).show();
+                    }
+                });
+        builder.show();
     }
 
     @Override

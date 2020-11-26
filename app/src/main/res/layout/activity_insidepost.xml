@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/yellow_paperboard_background"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/yellow_paperboard_background"
         android:orientation="vertical"
-        android:background="#f7f7f7">
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,13 +29,14 @@
                     android:id="@+id/editButton"
                     android:layout_width="70dp"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/myfont"
                     android:text="수정"
                     android:textSize="20dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="10dp"
                     android:visibility="invisible"
                     android:gravity="center"
-                    android:background="@drawable/round_button">
+                    android:background="@drawable/light_orange_button">
 
                 </Button>
 
@@ -40,13 +44,14 @@
                     android:id="@+id/deleteButton"
                     android:layout_width="70dp"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/myfont"
                     android:text="삭제"
                     android:textSize="20dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="10dp"
                     android:visibility="invisible"
                     android:gravity="center"
-                    android:background="@drawable/round_button">
+                    android:background="@drawable/light_orange_button">
 
                 </Button>
 
@@ -54,11 +59,12 @@
                     android:id="@+id/postInsideNickname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/myfont"
                     android:textSize="24dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="40dp"
-                    android:textStyle="italic"
+                    android:textColor="#ff9500"
                     android:text="000">
 
                 </TextView>
@@ -71,12 +77,13 @@
                 android:id="@+id/postInsideTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/myfont"
                 android:textSize="34dp"
                 android:layout_marginLeft="35dp"
                 android:layout_marginRight="35dp"
                 android:layout_marginTop="10dp"
-                android:text="111"
-                android:background="#ebecf0">
+                android:textStyle="bold"
+                android:text="111">
 
             </TextView>
 
@@ -84,21 +91,21 @@
                 android:id="@+id/postInsideContent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/myfont"
                 android:textSize="28dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="35dp"
                 android:layout_marginRight="35dp"
-                android:background="#ebecf0"
                 android:text="222">
 
             </TextView>
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="8dp"
+                android:layout_height="1dp"
                 android:layout_marginTop="20dp"
                 android:text=" "
-                android:background="#ebecf0">
+                android:background="#ff9500">
             </TextView>
         </LinearLayout>
 
@@ -126,6 +133,7 @@
                 android:id="@+id/commentText"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
+                android:fontFamily="@font/myfont"
                 android:hint="댓글을 입력해주세요"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
@@ -137,6 +145,7 @@
                 android:id="@+id/sendCommentButton"
                 android:layout_width="50dp"
                 android:layout_height="40dp"
+                android:fontFamily="@font/myfont"
                 android:layout_weight="0"
                 android:background="@drawable/sendbutton"
                 android:layout_marginLeft="10dp"

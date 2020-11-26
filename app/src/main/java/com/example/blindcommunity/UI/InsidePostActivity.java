@@ -1,6 +1,8 @@
 package com.example.blindcommunity.UI;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -54,7 +56,19 @@ public class InsidePostActivity extends Activity {
         m_content = findViewById(R.id.postInsideContent);
 
         editButton = findViewById(R.id.editButton);
+        editButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                showEditDialog();
+            }
+        });
         deleteButton = findViewById(R.id.deleteButton);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDeleteDiaglog();
+            }
+        });
 
         Intent intent = getIntent();
         m_post_id = intent.getStringExtra("post_id");
@@ -126,7 +140,47 @@ public class InsidePostActivity extends Activity {
 
 
     }
+    void showDeleteDiaglog()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        //builder.setTitle("AlertDialog Title");
+        builder.setMessage("삭제하시겠습나까?");
+        builder.setPositiveButton("예",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        //Toast.makeText(getApplicationContext(),"예를 선택했습니다.",Toast.LENGTH_LONG).show();
+                        JSONDeletePostTaskGET task5 = new JSONDeletePostTaskGET();
+                        String parameter = "?post_id="+m_post_id+"&post_type="+employ_type;
+                        task5.execute("http://13.125.232.199:3000/delete_post" + parameter);
 
+                    }
+                });
+        builder.setNegativeButton("아니오",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getApplicationContext(),"아니오를 선택했습니다.",Toast.LENGTH_LONG).show();
+                    }
+                });
+        builder.show();
+    }
+
+    void showEditDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("수정하시겠습나까?");
+        builder.setPositiveButton("예",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getApplicationContext(),"예를 선택했습니다.",Toast.LENGTH_LONG).show();
+                    }
+                });
+        builder.setNegativeButton("아니오",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getApplicationContext(),"아니오를 선택했습니다.",Toast.LENGTH_LONG).show();
+                    }
+                });
+        builder.show();
+    }
 
     //Toast를 짧은 코드로 사용하기 위한 함수
     private void makeToast(String string){
@@ -268,6 +322,28 @@ public class InsidePostActivity extends Activity {
                 Log.e("you are the writer","글쓴이 입니다.");
                 editButton.setVisibility(View.VISIBLE);
                 deleteButton.setVisibility(View.VISIBLE);
+            }
+        }
+    }
+
+    private class JSONDeletePostTaskGET extends JsonTaskModel{
+        public void setData(ArrayList<Data> data){
+            super.setData(data);
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            if(result == null){
+                return;
+            }
+            if(result.equals("-1")){
+                Log.e("fail","게시글 삭제에 실패하였습니다.");
+
+            }
+            else if(result.equals("1")){
+                Log.e("success","게시글 삭제 성공");
+                finish();
             }
         }
     }

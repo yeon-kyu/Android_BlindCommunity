@@ -99,7 +99,7 @@ public class WritePostFragment extends Fragment {
         String DateAndTime = sdfNow.format(date);
 
         JSONTaskGET task = new JSONTaskGET();
-        String parameter = "?post_id="+DateAndTime+"&title="+m_title+"&content="+m_content+"&user_id="+homeActivity.cur_user_id;
+        String parameter = "?post_id="+DateAndTime+homeActivity.cur_user_id+"&title="+m_title+"&content="+m_content+"&user_id="+homeActivity.cur_user_id;
         if(index==1){
             task.execute("http://13.125.232.199:3000/write_free" + parameter);
         }
