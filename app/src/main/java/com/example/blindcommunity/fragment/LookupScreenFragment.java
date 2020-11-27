@@ -37,6 +37,10 @@ public class LookupScreenFragment extends Fragment {
     SimpleAdapter adapter;
     int count;
     Button writePostButton;
+    Button readMoreButton;
+
+    ListView listview;
+
     @Override
     public void onAttach(Context context){
         super.onAttach(context);
@@ -53,12 +57,14 @@ public class LookupScreenFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View view =  inflater.inflate(R.layout.fragment_lookupscreen,container,false);
 
+        count = 0;
+
         post_list = new ArrayList<HashMap<String,String>>();
 
         adapter = new SimpleAdapter(getActivity(), post_list,android.R.layout.simple_list_item_2,
                 new String[]{"item1","item2","item3"},new int[]{android.R.id.text1,android.R.id.text2});
 
-        final ListView listview = (ListView)view.findViewById(R.id.MyListview);
+        listview = (ListView)view.findViewById(R.id.MyListview);
         listview.setAdapter(adapter);
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
@@ -72,8 +78,6 @@ public class LookupScreenFragment extends Fragment {
 
         });
 
-        sendJSONData();
-
         writePostButton = view.findViewById(R.id.writePostButton);
         writePostButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -82,9 +86,26 @@ public class LookupScreenFragment extends Fragment {
 
             }
         });
+        readMoreButton = view.findViewById(R.id.readmorebutton);
+        readMoreButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                count+=10;
+                sendJSONData();
+            }
+        });
 
         return view;
     }
+
+    @Override
+    public void onResume() { //이 화면으로 돌아왔을 때 게시물을 삭제하거나 변경사항이 있을 수 있으니 list 업데이트
+        super.onResume();
+        post_list.clear();
+        count = 0;
+        sendJSONData();
+    }
+
     private void sendJSONData(){
         int classifyPost = homeActivity.title;
         JSONTaskGET task = new JSONTaskGET();
@@ -116,14 +137,26 @@ public class LookupScreenFragment extends Fragment {
                 return;
             }
             if(result.equals("0")){
-                Log.e("no post","자유게시판에 게시글이 없습니다.");
-                homeActivity.makeToast("자유게시판에 게시물이 없습니다.");
+                Log.e("no post","자유게시판에 더이상 게시글이 없습니다.");
+                count-=10;
+                if(count<0){
+                    count=0;
+                }
+                homeActivity.makeToast("더이상 게시물이 없습니다.");
             }
             else if(result.equals("00")){
-                homeActivity.makeToast("정보게시판에 게시물이 없습니다.");
+                homeActivity.makeToast("더이상 게시물이 없습니다.");
+                count-=10;
+                if(count<0){
+                    count=0;
+                }
             }
             else if(result.equals("000")){
-                homeActivity.makeToast("취업게시판에 게시물이 없습니다.");
+                homeActivity.makeToast("더이상 게시물이 없습니다.");
+                count-=10;
+                if(count<0){
+                    count=0;
+                }
             }
             else{
                 Log.e("post exist","현재 게시판에 게시글이 있습니다.");

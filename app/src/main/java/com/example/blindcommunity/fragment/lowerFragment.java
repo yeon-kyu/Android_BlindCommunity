@@ -16,7 +16,8 @@ public class lowerFragment extends Fragment {
 
     HomeActivity homeActivity;
 
-    ImageButton homeButton,logoutButton,myTraceButton;
+    ImageButton homeButton,logoutButton,myTraceButton; //노란 색의 버튼들
+    ImageButton homeButton2,logoutButton2,myTraceButton2; //빨간 색의 버튼들
 
     @Override
     public void onAttach(Context context){
@@ -39,6 +40,9 @@ public class lowerFragment extends Fragment {
             @Override
             public void onClick(View view){
                 homeActivity.onChangeFragment(0);
+                setRedToYellow();
+                homeButton2.setVisibility(View.VISIBLE);
+                homeButton.setVisibility(View.INVISIBLE);
 
             }
         });
@@ -47,7 +51,9 @@ public class lowerFragment extends Fragment {
             @Override
             public void onClick(View view){
                 homeActivity.onChangeFragment(-1);
-
+                setRedToYellow();
+                logoutButton2.setVisibility(View.VISIBLE);
+                logoutButton.setVisibility(View.INVISIBLE);
             }
         });
         myTraceButton = view.findViewById(R.id.myTraceButton);
@@ -55,11 +61,57 @@ public class lowerFragment extends Fragment {
             @Override
             public void onClick(View view){
                 homeActivity.onChangeFragment(4);
+                setRedToYellow();
+                myTraceButton2.setVisibility(View.VISIBLE);
+                myTraceButton.setVisibility(View.INVISIBLE);
 
             }
         });
 
+        homeButton2 = view.findViewById(R.id.homeButton2);
+        homeButton2.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                homeActivity.onChangeFragment(0);
+                setRedToYellow();
+                homeButton2.setVisibility(View.VISIBLE);
+                homeButton.setVisibility(View.INVISIBLE);
+
+            }
+        });
+        logoutButton2 = view.findViewById(R.id.logoutButton2);
+        logoutButton2.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                homeActivity.onChangeFragment(-1);
+                setRedToYellow();
+                logoutButton2.setVisibility(View.VISIBLE);
+                logoutButton.setVisibility(View.INVISIBLE);
+            }
+        });
+        myTraceButton2 = view.findViewById(R.id.myTraceButton2);
+        myTraceButton2.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                homeActivity.onChangeFragment(4);
+                setRedToYellow();
+                myTraceButton2.setVisibility(View.VISIBLE);
+                myTraceButton.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        homeButton2.setVisibility(View.VISIBLE);
+        homeButton.setVisibility(View.INVISIBLE);
+
 
         return view;
+    }
+    public void setRedToYellow(){
+        homeButton.setVisibility(View.VISIBLE);
+        logoutButton.setVisibility(View.VISIBLE);
+        myTraceButton.setVisibility(View.VISIBLE);
+        homeButton2.setVisibility(View.INVISIBLE);
+        logoutButton2.setVisibility(View.INVISIBLE);
+        myTraceButton2.setVisibility(View.INVISIBLE);
     }
 }

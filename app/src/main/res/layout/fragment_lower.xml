@@ -7,11 +7,23 @@
 
     <ImageButton
         android:id="@+id/logoutButton"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:background="@drawable/logout"
-        android:layout_marginLeft="30dp"
-        android:layout_alignParentLeft="true"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/yellow_logout"
+        android:layout_toLeftOf="@+id/homeButton"
+        android:layout_marginRight="70dp"
+        >
+
+    </ImageButton>
+
+    <ImageButton
+        android:id="@+id/logoutButton2"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/red_logout"
+        android:layout_toLeftOf="@+id/homeButton"
+        android:layout_marginRight="70dp"
+        android:visibility="invisible"
         >
 
     </ImageButton>
@@ -19,21 +31,43 @@
 
     <ImageButton
         android:id="@+id/homeButton"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:background="@drawable/home"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/yellow_home"
         android:layout_centerHorizontal="true"
+        >
+
+    </ImageButton>
+    <ImageButton
+        android:id="@+id/homeButton2"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/red_home"
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible"
         >
 
     </ImageButton>
 
     <ImageButton
         android:id="@+id/myTraceButton"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:background="@drawable/person"
-        android:layout_marginRight="30dp"
-        android:layout_alignParentRight="true"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/yellow_person"
+        android:layout_toRightOf="@+id/homeButton"
+        android:layout_marginLeft="70dp"
+        >
+
+    </ImageButton>
+
+    <ImageButton
+        android:id="@+id/myTraceButton2"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/red_person"
+        android:layout_toRightOf="@+id/homeButton"
+        android:layout_marginLeft="70dp"
+        android:visibility="invisible"
         >
 
     </ImageButton>

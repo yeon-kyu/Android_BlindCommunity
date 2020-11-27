@@ -42,6 +42,7 @@ public class InsidePostActivity extends Activity {
     ImageButton m_sendCommentButton;
 
     Button editButton, deleteButton;
+    ImageButton refreshButton;
 
     ArrayList<HashMap<String,String>> comment_list;
     SimpleAdapter adapter;
@@ -69,6 +70,13 @@ public class InsidePostActivity extends Activity {
                 showDeleteDiaglog();
             }
         });
+        refreshButton = findViewById(R.id.refreshButton);
+        refreshButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                updateComment();
+            }
+        });
 
         Intent intent = getIntent();
         m_post_id = intent.getStringExtra("post_id");
@@ -92,7 +100,7 @@ public class InsidePostActivity extends Activity {
                 SimpleDateFormat sdfNow = new SimpleDateFormat("yyyyMMdd_HHmmss");
                 String DateAndTime = sdfNow.format(date);
 
-                String para = "?post_id="+m_post_id+"&user_id="+cur_user_id+"&comment_content="+comment+"&comment_id="+DateAndTime;
+                String para = "?post_id="+m_post_id+"&user_id="+cur_user_id+"&comment_content="+comment+"&comment_id="+DateAndTime+cur_user_id;
 
                 task2.execute("http://13.125.232.199:3000/write_comment" + para);
 
@@ -113,6 +121,14 @@ public class InsidePostActivity extends Activity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 HashMap<String,String> m_item = (HashMap<String, String>) adapter.getItem(position);
                 String user_id = m_item.get("item3"); //TODO 나중에 댓글 삭제할 때 여기에 저장한 item3의 user_id를 사용함
+                //makeToast("1. "+m_item.get("item1")+", 2. "+m_item.get("item2")+", 3. "+m_item.get("item3")+", 4. "+m_item.get("item4"));
+                //1. 댓글 내용 2. 글쓴 닉네임, 3: 글쓴 아이디 4.comment_id
+                if(m_item.get("item3").equals(cur_user_id)){
+                    //makeToast("댓글을 작성한 사람입니다.");
+                    showDeleteCommentDialog(m_item.get("item4"));
+                    //TODO 이때 삭제기능 추가해야함
+                }
+
 
             }
 
@@ -158,7 +174,7 @@ public class InsidePostActivity extends Activity {
         builder.setNegativeButton("아니오",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getApplicationContext(),"아니오를 선택했습니다.",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(),"아니오를 선택했습니다.",Toast.LENGTH_SHORT).show();
                     }
                 });
         builder.show();
@@ -170,16 +186,46 @@ public class InsidePostActivity extends Activity {
         builder.setPositiveButton("예",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getApplicationContext(),"예를 선택했습니다.",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(),"예를 선택했습니다.",Toast.LENGTH_SHORT).show();
                     }
                 });
         builder.setNegativeButton("아니오",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getApplicationContext(),"아니오를 선택했습니다.",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(),"아니오를 선택했습니다.",Toast.LENGTH_SHORT).show();
                     }
                 });
         builder.show();
+    }
+
+    void showDeleteCommentDialog(final String comment_id){ //삭제하기 전에 다이얼로그 띄우고 삭제 명령이면 서버에 전송하기
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("댓글을 삭제할 수 있습니다. 삭제하시겠습니까?");
+        builder.setPositiveButton("삭제",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        JSONDeleteCommentTaskGET task6 = new JSONDeleteCommentTaskGET();
+                        String parameter = "?comment_id="+comment_id;
+                        task6.execute("http://13.125.232.199:3000/delete_comment" + parameter);
+                    }
+                });
+        builder.setNegativeButton("취소",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        //Toast.makeText(getApplicationContext(),"아니오를 선택했습니다.",Toast.LENGTH_LONG).show();
+                    }
+                });
+        builder.show();
+    }
+
+    private void updateComment(){
+        //댓글 list 업데이트
+        comment_list.clear();
+
+        String parameter = "?post_id="+m_post_id;
+        JSONSearchCommentTaskGET task3 = new JSONSearchCommentTaskGET();
+        task3.execute("http://13.125.232.199:3000/search_comment" + parameter);
     }
 
     //Toast를 짧은 코드로 사용하기 위한 함수
@@ -246,12 +292,7 @@ public class InsidePostActivity extends Activity {
                 m_commentText.setText("");
                 makeToast("댓글을 작성하였습니다.");
 
-                //댓글 list 업데이트
-                comment_list.clear();
-
-                String parameter = "?post_id="+m_post_id;
-                JSONSearchCommentTaskGET task3 = new JSONSearchCommentTaskGET();
-                task3.execute("http://13.125.232.199:3000/search_comment" + parameter);
+                updateComment();
 
             }
         }
@@ -284,13 +325,15 @@ public class InsidePostActivity extends Activity {
                         JSONObject parsedResult = new JSONObject(jsonResult.getString(i));
                         Log.e("received comment : ","nickname : "+parsedResult.getString("nickname")
                                 +", comment_content : "+parsedResult.getString("comment_content")
-                                +", user_id : "+parsedResult.getString("user_id"));
+                                +", user_id : "+parsedResult.getString("user_id")
+                                +", comment_id : "+parsedResult.getString("comment_id"));
 
                         //TODO 닉네임과 코멘트 내용으로 listview 구현
                         item = new HashMap<String,String>();
                         item.put("item1",parsedResult.getString("comment_content"));
                         item.put("item2"," - "+parsedResult.getString("nickname"));
                         item.put("item3",parsedResult.getString("user_id"));
+                        item.put("item4",parsedResult.getString("comment_id"));
                         comment_list.add(item);
 
                     }
@@ -320,7 +363,8 @@ public class InsidePostActivity extends Activity {
             }
             else if(result.equals("1")){
                 Log.e("you are the writer","글쓴이 입니다.");
-                editButton.setVisibility(View.VISIBLE);
+                //TODO 글쓴이에게 수정 기능 제공
+                //editButton.setVisibility(View.VISIBLE);
                 deleteButton.setVisibility(View.VISIBLE);
             }
         }
@@ -344,6 +388,28 @@ public class InsidePostActivity extends Activity {
             else if(result.equals("1")){
                 Log.e("success","게시글 삭제 성공");
                 finish();
+            }
+        }
+    }
+    private class JSONDeleteCommentTaskGET extends JsonTaskModel{
+        public void setData(ArrayList<Data> data){
+            super.setData(data);
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            if(result == null){
+                return;
+            }
+            if(result.equals("-1")){
+                Log.e("fail","댓글글 삭제에 실패하였습니다.");
+
+           }
+            else if(result.equals("1")){
+                Log.e("success","댓글 삭제 성공");
+                //댓글 list 업데이트
+                updateComment();
             }
         }
     }

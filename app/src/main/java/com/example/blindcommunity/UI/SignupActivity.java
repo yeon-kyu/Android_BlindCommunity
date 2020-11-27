@@ -50,8 +50,8 @@ public class SignupActivity extends Activity {
                 String m_id = id.getText().toString();
                 String m_pw = pw.getText().toString();
                 String m_nick = nickname.getText().toString();
-                if(m_id == null || m_id.length()>=50){
-                    makeToast("id 길이는 50자 이내로 작성해주세요");
+                if(m_id == null || m_id.length()>=30){
+                    makeToast("id 길이는 30자 이내로 작성해주세요");
                     return;
                 }
                 else if(m_pw ==null || m_pw.length()>=50){
