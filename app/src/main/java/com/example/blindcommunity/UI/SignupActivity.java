@@ -50,17 +50,27 @@ public class SignupActivity extends Activity {
                 String m_id = id.getText().toString();
                 String m_pw = pw.getText().toString();
                 String m_nick = nickname.getText().toString();
-                if(m_id == null || m_id.length()>=30){
-                    makeToast("id 길이는 30자 이내로 작성해주세요");
+                if(m_id.equals("") || m_id.length()>=30){
+                    makeToast("아이디는 30자 이내로 작성해주세요");
                     return;
                 }
-                else if(m_pw ==null || m_pw.length()>=50){
-                    makeToast("pw 길이는 50자 이내로 작성해주세요");
+                else if(m_pw.equals("") || m_pw.length()>=50){
+                    makeToast("비밀번호는 50자 이내로 작성해주세요");
                     return;
                 }
-                else if(m_nick == null || m_nick.length()>=50){
-                    makeToast("nickname 길이는 50자 이내로 작성해주세요");
+                else if(m_nick.equals("") || m_nick.length()>=50){
+                    makeToast("닉네임은 50자 이내로 작성해주세요");
+                    return;
                 }
+                if(m_id.contains("'")||m_pw.contains("'")){
+                    makeToast("'문자는 사용할 수 없습니다.");
+                    return;
+                }
+                if(m_id.contains("|")||m_pw.contains("|")||m_nick.contains("|")){
+                    makeToast("| 문자는 사용할 수 없습니다.");
+                    return;
+                }
+
                 String parameter = "?id=" + m_id + "&pw="+m_pw + "&nickname=" + m_nick;
                 task.execute("http://13.125.232.199:3000/sign_up"+parameter);
 

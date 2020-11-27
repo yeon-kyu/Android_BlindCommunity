@@ -2,12 +2,17 @@ package com.example.blindcommunity.UI;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -38,6 +43,7 @@ public class InsidePostActivity extends Activity {
     int employ_type;
 
     TextView m_nickname, m_title, m_content;
+    TextView m_date;
     EditText m_commentText;
     ImageButton m_sendCommentButton;
 
@@ -45,7 +51,7 @@ public class InsidePostActivity extends Activity {
     ImageButton refreshButton;
 
     ArrayList<HashMap<String,String>> comment_list;
-    SimpleAdapter adapter;
+    CustomListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +61,7 @@ public class InsidePostActivity extends Activity {
         m_nickname = findViewById(R.id.postInsideNickname);
         m_title = findViewById(R.id.postInsideTitle);
         m_content = findViewById(R.id.postInsideContent);
+        m_date = findViewById(R.id.postDate);
 
         editButton = findViewById(R.id.editButton);
         editButton.setOnClickListener(new View.OnClickListener(){
@@ -95,6 +102,10 @@ public class InsidePostActivity extends Activity {
                     makeToast("댓글은 200자 이내로 작성해 주십시오");
                     return;
                 }
+                else if(comment.length()==0){
+                    makeToast("내용을 입력해주세요");
+                    return;
+                }
 
                 Date date = new Date(System.currentTimeMillis());
                 SimpleDateFormat sdfNow = new SimpleDateFormat("yyyyMMdd_HHmmss");
@@ -108,24 +119,29 @@ public class InsidePostActivity extends Activity {
 
         });
 
-        comment_list = new ArrayList<HashMap<String,String>>();
 
-        adapter = new SimpleAdapter(this, comment_list,android.R.layout.simple_list_item_2,
-                new String[]{"item1","item2","item3"},new int[]{android.R.id.text1,android.R.id.text2});
+
+//        adapter = new SimpleAdapter(this, comment_list,android.R.layout.simple_list_item_2,
+//                new String[]{"item1","item2","item3"},new int[]{android.R.id.text1,android.R.id.text2});
         //item1 : 댓글 내용, item2 : 댓글 쓴 닉네임, item3: 댓글 쓴 id
+
+        adapter = new CustomListAdapter();
 
         final ListView listview = (ListView)findViewById(R.id.CommentListview);
         listview.setAdapter(adapter);
+
+        //adapter.addItem("1","2","3","4","5");
+
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                HashMap<String,String> m_item = (HashMap<String, String>) adapter.getItem(position);
-                String user_id = m_item.get("item3"); //TODO 나중에 댓글 삭제할 때 여기에 저장한 item3의 user_id를 사용함
+                ListViewItem m_item = (ListViewItem) adapter.getItem(position);
+                String user_id = m_item.user_id; //TODO 나중에 댓글 삭제할 때 여기에 저장한 item3의 user_id를 사용함
                 //makeToast("1. "+m_item.get("item1")+", 2. "+m_item.get("item2")+", 3. "+m_item.get("item3")+", 4. "+m_item.get("item4"));
                 //1. 댓글 내용 2. 글쓴 닉네임, 3: 글쓴 아이디 4.comment_id
-                if(m_item.get("item3").equals(cur_user_id)){
+                if(m_item.user_id.equals(cur_user_id)){
                     //makeToast("댓글을 작성한 사람입니다.");
-                    showDeleteCommentDialog(m_item.get("item4"));
+                    showDeleteCommentDialog(m_item.comment_id);
                     //TODO 이때 삭제기능 추가해야함
                 }
 
@@ -221,7 +237,8 @@ public class InsidePostActivity extends Activity {
 
     private void updateComment(){
         //댓글 list 업데이트
-        comment_list.clear();
+        //comment_list.clear();
+        adapter.getclear();
 
         String parameter = "?post_id="+m_post_id;
         JSONSearchCommentTaskGET task3 = new JSONSearchCommentTaskGET();
@@ -233,6 +250,66 @@ public class InsidePostActivity extends Activity {
         Toast.makeText(getApplicationContext(), string, Toast.LENGTH_SHORT).show();
     }
 
+    public class CustomListAdapter extends BaseAdapter {
+        private ArrayList<ListViewItem> listViewItemList = new ArrayList<ListViewItem>();
+
+        public void getclear(){
+            listViewItemList.clear();
+        }
+
+        @Override
+        public int getCount(){
+            return listViewItemList.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return listViewItemList.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position,View convertView, ViewGroup parent){
+            final int pos = position;
+            final Context context = parent.getContext();
+            if (convertView == null) {
+                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                convertView = inflater.inflate(R.layout.custom_layout, parent, false);
+            }
+
+            TextView writerTextView = (TextView) convertView.findViewById(R.id.writer);
+            TextView contentTextView = (TextView) convertView.findViewById(R.id.content);
+            TextView dateTextView = (TextView) convertView.findViewById(R.id.date);
+
+            ListViewItem listViewItem = listViewItemList.get(position);
+
+            writerTextView.setText(listViewItem.writer);
+            contentTextView.setText(listViewItem.content);
+            dateTextView.setText(listViewItem.date);
+
+            return convertView;
+
+        }
+        public void addItem(String writer, String content, String date,String user_id, String comment_id){
+            ListViewItem item = new ListViewItem();
+
+            item.writer = writer;
+            item.content = content;
+            item.date = date;
+            item.user_id = user_id;
+            item.comment_id = comment_id;
+            listViewItemList.add(item);
+        }
+    }
+
+    private class ListViewItem{
+        public String writer,content,date,user_id,comment_id;
+
+    }
 
     private class JSONTaskGET extends JsonTaskModel {
 
@@ -262,6 +339,9 @@ public class InsidePostActivity extends Activity {
                         m_nickname.setText(parsedResult.getString("nickname"));
                         m_title.setText(parsedResult.getString("title"));
                         m_content.setText(parsedResult.getString("content"));
+                        String dateString = m_post_id.substring(2,4)+"/"+m_post_id.substring(4,6)+"/"+m_post_id.substring(6,8)
+                                +" "+m_post_id.substring(9,11)+":"+m_post_id.substring(11,13);
+                        m_date.setText(dateString);
 
                     }
 
@@ -329,15 +409,16 @@ public class InsidePostActivity extends Activity {
                                 +", comment_id : "+parsedResult.getString("comment_id"));
 
                         //TODO 닉네임과 코멘트 내용으로 listview 구현
-                        item = new HashMap<String,String>();
-                        item.put("item1",parsedResult.getString("comment_content"));
-                        item.put("item2"," - "+parsedResult.getString("nickname"));
-                        item.put("item3",parsedResult.getString("user_id"));
-                        item.put("item4",parsedResult.getString("comment_id"));
-                        comment_list.add(item);
+                        String comment_id=parsedResult.getString("comment_id");
+                        String date = comment_id.substring(2,4)+"/"+comment_id.substring(4,6)+"/"
+                                +comment_id.substring(6,8)+" "+comment_id.substring(9,11)+":"+comment_id.substring(11,13);
+
+                        adapter.addItem(parsedResult.getString("nickname"),parsedResult.getString("comment_content"),
+                                date,parsedResult.getString("user_id"),comment_id);
 
                     }
                     adapter.notifyDataSetChanged();
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -403,7 +484,7 @@ public class InsidePostActivity extends Activity {
                 return;
             }
             if(result.equals("-1")){
-                Log.e("fail","댓글글 삭제에 실패하였습니다.");
+                Log.e("fail","댓글 삭제에 실패하였습니다.");
 
            }
             else if(result.equals("1")){

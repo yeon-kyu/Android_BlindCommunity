@@ -84,16 +84,21 @@ public class WritePostFragment extends Fragment {
             homeActivity.makeToast("제목은 100자 이내로 작성해주세요");
             return;
         }
-        else{
-            titleText.setText("");
+        else if(titleText.length()==0){
+            homeActivity.makeToast("제목을 입력해주세요");
+            return;
         }
         if(contentText.length()>1000){
             homeActivity.makeToast("내용은 1000자 이내로 작성해주세요");
             return;
         }
-        else{
-            contentText.setText("");
+        else if(contentText.length()==0){
+            homeActivity.makeToast("내용을 입력해주세요");
+            return;
         }
+        titleText.setText("");
+        contentText.setText("");
+
         Date date = new Date(System.currentTimeMillis());
         SimpleDateFormat sdfNow = new SimpleDateFormat("yyyyMMdd_HHmmss");
         String DateAndTime = sdfNow.format(date);

@@ -58,6 +58,19 @@ public class MyTraceScreenFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 HashMap<String,String> m_item = (HashMap<String, String>) adapter.getItem(position);
                 String post_id = m_item.get("item3");
+                String post_type = m_item.get("item2");
+                if(post_type.equals(" [ 자유 게시판 ] ")){
+                    homeActivity.title = 1;
+                }
+                else if(post_type.equals(" [ 정보 게시판 ] ")){
+                    homeActivity.title = 2;
+                }
+                else if(post_type.equals(" [ 취업 게시판 ] ")){
+                    homeActivity.title = 3;
+                }
+                else{
+                    Log.e("trace faile","무슨 게시판인지 알 수 없음");
+                }
 
                 homeActivity.moveToInsidePostActivity(post_id);
             }

@@ -44,14 +44,25 @@ public class SignInActivity extends AppCompatActivity {
                 JSONTaskGET task = new JSONTaskGET();
                 String m_id = idText.getText().toString();
                 String m_pw = pwText.getText().toString();
-                if(m_id == null || m_id.length()>=50){
+                if(m_id.equals("") || m_id.length()>=50){
                     makeToast("id 길이는 50자 이내로 작성해주세요");
                     return;
                 }
-                else if(m_pw ==null || m_pw.length()>=50){
+                else if(m_pw.equals("") || m_pw.length()>=50){
                     makeToast("pw 길이는 50자 이내로 작성해주세요");
                     return;
                 }
+                if(m_id.contains("'")||m_pw.contains("'")){
+                    makeToast("'문자는 사용할 수 없습니다.");
+                    return;
+                }
+                if(m_id.contains("|")||m_pw.contains("|")){
+                    makeToast("|문자는 사용할 수 없습니다.");
+                    return;
+                }
+
+
+
                 ID = m_id;
                 //setMyID(m_id);
                 String parameter = "?id="+m_id+"&pw="+m_pw;
