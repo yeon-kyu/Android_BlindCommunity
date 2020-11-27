@@ -90,7 +90,7 @@ public class LookupScreenFragment extends Fragment {
         readMoreButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                count+=10;
+                count+=20;
                 sendJSONData();
             }
         });
@@ -138,7 +138,7 @@ public class LookupScreenFragment extends Fragment {
             }
             if(result.equals("0")){
                 Log.e("no post","자유게시판에 더이상 게시글이 없습니다.");
-                count-=10;
+                count-=20;
                 if(count<0){
                     count=0;
                 }
@@ -146,14 +146,14 @@ public class LookupScreenFragment extends Fragment {
             }
             else if(result.equals("00")){
                 homeActivity.makeToast("더이상 게시물이 없습니다.");
-                count-=10;
+                count-=20;
                 if(count<0){
                     count=0;
                 }
             }
             else if(result.equals("000")){
                 homeActivity.makeToast("더이상 게시물이 없습니다.");
-                count-=10;
+                count-=20;
                 if(count<0){
                     count=0;
                 }

@@ -157,7 +157,7 @@ app.get("/search_free",(req,res) => {
   
   pool.query(`select nickname,title,post_id from freePostTable f, UserTable u\
   where f.user_id = u.user_id order by post_id desc\
-  limit ${inputData.cnt}, ${inputData.cnt+10};`,
+  limit ${inputData.cnt}, ${inputData.cnt+20};`,
    function(err,result,fields){
     if(err){
       throw err;
@@ -188,7 +188,7 @@ app.get("/search_info",(req,res) => {
   
   pool.query(`select nickname,title,post_id from infoPostTable f, UserTable u\
   where f.user_id = u.user_id order by post_id desc\
-  limit ${inputData.cnt}, ${inputData.cnt+10};`,
+  limit ${inputData.cnt}, ${inputData.cnt+20};`,
    function(err,result,fields){
     if(err){
       throw err;
@@ -219,7 +219,7 @@ app.get("/search_employee",(req,res) => {
   
   pool.query(`select nickname,title,post_id from employPostTable f, UserTable u\
   where f.user_id = u.user_id order by post_id desc\
-  limit ${inputData.cnt}, ${inputData.cnt+10};`,
+  limit ${inputData.cnt}, ${inputData.cnt+20};`,
    function(err,result,fields){
     if(err){
       throw err;
@@ -448,7 +448,7 @@ app.get("/search_comment",(req,res) => {
   var inputData = req.query;
   console.log("들어온 데이터 : "+inputData.post_id);
 
-  pool.query(`select nickname, comment_content, u.user_id\
+  pool.query(`select nickname, comment_content, u.user_id, c.comment_id\
               from UserTable u, commentTable c\
               where u.user_id = c.user_id and c.post_id = '${inputData.post_id}'\
               order by c.comment_id asc;`,
@@ -543,6 +543,96 @@ app.get("/check_writerOrNot",(req,res) => {
           res.end(); 
         });
       }
+    }
+
+  });
+});
+
+app.get("/delete_post",(req,res) => {
+  console.log("delete_post 도착");
+  var inputData = req.query;
+  console.log("들어온 데이터 : "+inputData.post_id);
+  console.log("들어온 데이터 : "+inputData.post_type);
+  
+  var type = inputData.post_type;
+  if(type=="1"){
+    pool.query(`delete from freePostTable where post_id = '${inputData.post_id}'`,
+    function(err,result,fields){
+      if(err){
+        console.log("delete_post 에러");
+        res.write("-1",function(){
+          res.end();
+        })
+        throw err;
+      }
+      else{
+        res.write("1",function(){
+          res.end();
+        })
+      }
+
+    });
+  }
+  else if(type=="2"){
+    pool.query(`delete from infoPostTable where post_id = '${inputData.post_id}'`,
+    function(err,result,fields){
+      if(err){
+        console.log("delete_post 에러");
+        res.write("-1",function(){
+          res.end();
+        })
+        throw err;
+      }
+      else{
+        res.write("1",function(){
+          res.end();
+        })
+      }
+
+    });
+
+  }
+  else if(type=="3"){
+    pool.query(`delete from employPostTable where post_id = '${inputData.post_id}'`,
+    function(err,result,fields){
+      if(err){
+        console.log("delete_post 에러");
+        res.write("-1",function(){
+          res.end();
+        })
+        throw err;
+      }
+      else{
+        res.write("1",function(){
+          res.end();
+        })
+      }
+
+    });
+
+  }
+
+});
+
+app.get("/delete_comment",(req,res) => {
+  console.log("delete_comment 도착");
+  var inputData = req.query;
+  console.log("들어온 데이터 : "+inputData.comment_id);
+
+  pool.query(`delete from commentTable where comment_id = '${inputData.comment_id}'`,
+    function(err,result,fields){
+    if(err){
+      console.log("댓글 삭제 실패");
+      res.write("-1",function(){
+        res.end();
+      })
+      throw err;
+    }
+    else{
+      console.log("댓글 삭제 성공");
+      res.write("1",function(){
+        res.end(); 
+      });
     }
 
   });
