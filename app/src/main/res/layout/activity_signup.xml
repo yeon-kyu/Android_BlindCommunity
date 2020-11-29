@@ -55,6 +55,18 @@
         android:textSize="24dp">
     </EditText>
 
+    <EditText
+        android:id="@+id/signupAge"
+        android:layout_width="250dp"
+        android:layout_height="70dp"
+        android:fontFamily="@font/myfont"
+        android:gravity="center"
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center_horizontal"
+        android:hint="나이(숫자만)"
+        android:textSize="24dp">
+    </EditText>
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

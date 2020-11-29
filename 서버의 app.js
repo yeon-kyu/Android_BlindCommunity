@@ -54,6 +54,7 @@ app.get("/sign_up",(req,res) => {
   console.log("들어온 데이터 : "+inputData.id);
   console.log("들어온 데이터 : "+inputData.pw);
   console.log("들어온 데이터 : "+inputData.nickname);
+  console.log("들어온 데이터 : "+inputData.age);
   
   pool.query("select * from UserTable where user_id = '"+inputData.id+"';", function(err,result,fields){
     if(err){
@@ -75,8 +76,8 @@ app.get("/sign_up",(req,res) => {
       else{
         //DB에 회원 정보 저장
         pool.query(
-          `INSERT INTO UserTable(user_id, user_pw, nickname)\
-           VALUES('${inputData.id}', '${inputData.pw}', '${inputData.nickname}');`,
+          `INSERT INTO UserTable(user_id, user_pw, nickname, age)\
+           VALUES('${inputData.id}', '${inputData.pw}', '${inputData.nickname}', '${inputData.age}');`,
           //"INSERT INTO UserTable(user_id, user_pw, nickname) VALUES ('" + inputData.id + "', " +
           //inputData.pw + "', '" + inputData.nickname + "');",
           function(err, result, fields) {

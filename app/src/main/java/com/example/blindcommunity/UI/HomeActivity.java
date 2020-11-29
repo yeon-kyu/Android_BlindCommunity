@@ -2,6 +2,7 @@ package com.example.blindcommunity.UI;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,6 +23,10 @@ import com.example.blindcommunity.fragment.MyTraceScreenFragment;
 import com.example.blindcommunity.fragment.WritePostFragment;
 import com.example.blindcommunity.fragment.lowerFragment;
 import org.w3c.dom.Text;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -123,6 +128,7 @@ public class HomeActivity extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         //Toast.makeText(getApplicationContext(),"예를 선택했습니다.",Toast.LENGTH_LONG).show();
+                        writeAutoLoginFile("0");
                         Intent intent = new Intent(HomeActivity.this, SignInActivity.class);
                         startActivity(intent);
                         finish();
@@ -135,6 +141,19 @@ public class HomeActivity extends AppCompatActivity {
                     }
                 });
         builder.show();
+    }
+
+    private void writeAutoLoginFile(String loginData){
+        FileOutputStream fos = null;// data/data/BlindCommunity에 저장될듯
+        try{
+            fos = openFileOutput("loginData.txt", Context.MODE_PRIVATE);
+            fos.write(loginData.getBytes());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
