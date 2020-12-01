@@ -64,7 +64,7 @@ JsonTaskModel은 AsyncTask 클래스를 상속받아 http통신을 처리합니�
 
   <게시물 내부>
 <div>
-<img width = "300" src = "https://github.com/yeon-kyu/Android_application_BlindCommunity/blob/main/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7/%EC%9E%90%EC%9C%A0%EA%B2%8C%EC%8B%9C%ED%8C%90lookup.jpg">
+<img width = "300" src = "https://github.com/yeon-kyu/Android_application_BlindCommunity/blob/main/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7/%EA%B2%8C%EC%8B%9C%ED%8C%90inside.jpg">
  </div>
 자유게시판(또는 정보/취업 게시판)에서 게시물을 클릭하여 내부에 들어왔을 때의 화면입니다. 게시물의 작성자가 본인이면 화면 상단에 "삭제"버튼이 보이게 됩니다.
 댓글을 보여주는 리스트는 CustomListView로 구현하였습니다. 댓글을 작성하면 리스트의 최하단에 업로드됩니다.</br>
@@ -73,14 +73,14 @@ JsonTaskModel은 AsyncTask 클래스를 상속받아 http통신을 처리합니�
  
   <댓글 삭제>
 <div>
-<img width = "300" src = "https://github.com/yeon-kyu/Android_application_BlindCommunity/blob/main/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7/%EC%9E%90%EC%9C%A0%EA%B2%8C%EC%8B%9C%ED%8C%90lookup.jpg">
+<img width = "300" src = "https://github.com/yeon-kyu/Android_application_BlindCommunity/blob/main/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7/%EB%8C%93%EA%B8%80%EC%82%AD%EC%A0%9C.jpg">
  </div>
 댓글 리스트를 클릭했을 때 댓글의 작성자이면 위와같이 댓글을 삭제할 것인지 다시 묻는 다이얼로그가 생성됩니다. 삭제를 누르면 서버에서 댓글이 삭제됩니다.</br>
  </br>
  </br>
    <댓글 삭제 이후>
 <div>
-<img width = "300" src = "https://github.com/yeon-kyu/Android_application_BlindCommunity/blob/main/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7/%EC%9E%90%EC%9C%A0%EA%B2%8C%EC%8B%9C%ED%8C%90lookup.jpg">
+<img width = "300" src = "https://github.com/yeon-kyu/Android_application_BlindCommunity/blob/main/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7/%EB%8C%93%EA%B8%80%EC%82%AD%EC%A0%9C%EC%9D%B4%ED%9B%84.jpg">
  </div>
 댓글이 삭제된 이후의 화면입니다.</br>
  </br>
@@ -88,7 +88,7 @@ JsonTaskModel은 AsyncTask 클래스를 상속받아 http통신을 처리합니�
  
    <게시물 삭제>
 <div>
-<img width = "300" src = "https://github.com/yeon-kyu/Android_application_BlindCommunity/blob/main/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7/%EC%9E%90%EC%9C%A0%EA%B2%8C%EC%8B%9C%ED%8C%90lookup.jpg">
+<img width = "300" src = "https://github.com/yeon-kyu/Android_application_BlindCommunity/blob/main/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7/%EA%B2%8C%EC%8B%9C%EB%AC%BC%EC%82%AD%EC%A0%9C.jpg">
  </div>
 게시물의 작성자가 본인일 때 보이는 "삭제" 버튼을 클릭하면 삭제할 것인지 다시 묻는 다이얼로그가 생성되고 삭제를 할 수 있습니다.</br>
  </br>
@@ -96,7 +96,7 @@ JsonTaskModel은 AsyncTask 클래스를 상속받아 http통신을 처리합니�
  
     <내가 쓴 게시물 보기>
 <div>
-<img width = "300" src = "https://github.com/yeon-kyu/Android_application_BlindCommunity/blob/main/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7/%EC%9E%90%EC%9C%A0%EA%B2%8C%EC%8B%9C%ED%8C%90lookup.jpg">
+<img width = "300" src = "https://github.com/yeon-kyu/Android_application_BlindCommunity/blob/main/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7/%EB%82%B4%EA%B0%80%EC%93%B4%EA%B2%8C%EC%8B%9C%EB%AC%BC.jpg">
  </div>
 본인이 작성한 게시물을 모아서 볼 수 있습니다. 리스트를 클릭하면 해당 게시물로 이동합니다.</br>
  </br>
@@ -104,7 +104,7 @@ JsonTaskModel은 AsyncTask 클래스를 상속받아 http통신을 처리합니�
  
      <로그아웃하기>
 <div>
-<img width = "300" src = "https://github.com/yeon-kyu/Android_application_BlindCommunity/blob/main/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7/%EC%9E%90%EC%9C%A0%EA%B2%8C%EC%8B%9C%ED%8C%90lookup.jpg">
+<img width = "300" src = "https://github.com/yeon-kyu/Android_application_BlindCommunity/blob/main/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7/%EB%A1%9C%EA%B7%B8%EC%95%84%EC%9B%83diaglog.jpg">
  </div>
 현재 계정에서 로그아웃하여 다시 로그인창으로 이동할 수 있습니다.</br>
  </br>
