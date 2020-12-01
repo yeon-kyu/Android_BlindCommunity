@@ -1,2 +1,18 @@
 # BlindCommunity
+ android application
  
+  </br>
+ </br>
+ 개요 : 취업준비생들이 정보를 공유하고 소통할 수 있는 커뮤니티입니다. 로그인을 하면 누구나 게시물을 작성하고 게시물에 댓글을 작성할 수 있습니다.  
+ </br>
+ 백앤드는 AWS EC2 환경에서 nodejs로 구현되어 있으며 MySQL와 연동됩니다. 앱과 서버는 http 통신을 합니다.
+  </br>
+ </br>
+ 
+<전체적인 시스템 구조>
+<div>
+<img width = "300" src = "https://github.com/yeon-kyu/Android_application_BlindCommunity/blob/main/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7/%EB%A1%9C%EA%B7%B8%EC%9D%B8.jpg">
+ </div>
+처음 앱을 켰을 때 화면인 로그인 화면입니다. </br>
+ </br>
+ </br>
