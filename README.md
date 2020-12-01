@@ -11,7 +11,7 @@
  
 <전체적인 시스템 구조>
 <div>
-<img width = "600" src = "https://github.com/yeon-kyu/Android_application_BlindCommunity/blob/main/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7/%EB%A1%9C%EA%B7%B8%EC%9D%B8.jpg">
+<img width = "300" src = "https://github.com/yeon-kyu/Android_application_BlindCommunity/blob/main/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7/%EB%A1%9C%EA%B7%B8%EC%9D%B8.jpg">
  </div>
 처음 앱을 켰을 때 화면인 로그인 화면입니다. </br>
  </br>
