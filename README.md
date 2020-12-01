@@ -102,7 +102,7 @@ JsonTaskModel은 AsyncTask 클래스를 상속받아 http통신을 처리합니�
  </br>
  </br>
  
-    <로그아웃하기>
+  <로그아웃하기>
 <div>
 <img width = "300" src = "https://github.com/yeon-kyu/Android_application_BlindCommunity/blob/main/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7/%EB%A1%9C%EA%B7%B8%EC%95%84%EC%9B%83diaglog.jpg">
  </div>
