@@ -9,7 +9,17 @@
   </br>
  </br>
  
-<전체적인 시스템 구조>
+ <앱 전체 시스템 구조>
+<div>
+<img width = "300" src = "https://github.com/yeon-kyu/Android_application_BlindCommunity/blob/main/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7/%EB%8B%A4%EC%9D%B4%EC%96%B4%EA%B7%B8%EB%9E%A8.png">
+ </div>
+HomeActivity 안에 UpperFragment, HomeScreenFragment, LookupScreenFragment, MyTraceScreenFragment, WritePostFragment, lowerFragment이 포함되며, </br>
+JsonTaskModel은 AsyncTask 클래스를 상속받아 http통신을 처리합니다. 다시 JsonTaskModel을 상속하는 클래스들은 override를 통해 각자의 상황에 맞는 통신을 합니다.  </br>
+ </br>
+ </br>
+ 
+ 
+<로그인 화면>
 <div>
 <img width = "300" src = "https://github.com/yeon-kyu/Android_application_BlindCommunity/blob/main/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7/%EB%A1%9C%EA%B7%B8%EC%9D%B8.jpg">
  </div>
