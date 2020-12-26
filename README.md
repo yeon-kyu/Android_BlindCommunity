@@ -1,7 +1,7 @@
 # BlindCommunity
  android application
  
- ##구글 플레이스토어 링크
+ ## 구글 플레이스토어 링크
  https://play.google.com/store/apps/details?id=com.yeonkyu.blindcommunity
  
   </br>
