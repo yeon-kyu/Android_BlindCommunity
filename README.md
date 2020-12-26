@@ -1,6 +1,9 @@
 # BlindCommunity
  android application
  
+ ##구글 플레이스토어 링크
+ https://play.google.com/store/apps/details?id=com.yeonkyu.blindcommunity
+ 
   </br>
  </br>
  개요 : 취업준비생들이 정보를 공유하고 소통할 수 있는 커뮤니티입니다. 로그인을 하면 누구나 게시물을 작성하고 게시물에 댓글을 작성할 수 있습니다.  
